@@ -68,7 +68,7 @@ function WorkoutForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="max-w-6xl mx-auto flex flex-col bg-blue-200">
+      <div className="sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col bg-blue-200">
         {/* Header */}
         <div className="text-center mb-8 mt-5">
           <div className="flex items-center justify-center gap-3 mb-4">
@@ -112,7 +112,6 @@ function WorkoutForm() {
                 ))}
               </select>
               <ExerciseForm
-                name={exercise.name}
                 sets={exercise.sets}
                 onSetsChange={sets => handleSetsChange(idx, sets)}
               />
