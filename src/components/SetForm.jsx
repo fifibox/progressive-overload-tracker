@@ -34,15 +34,18 @@ function SetForm({ value = {}, onChange }) {
         />
       </label>
       <label>
-        <span className="mr-2">Weight(kg):</span>
+        <span className="mr-2">Weight:</span>
         <input
           type="number"
+          inputMode="numeric"
+          pattern="\d*"
           name="weight"
           value={value.weight || ''}
           onChange={handleChange}
-          className="w-15 sm:w-30 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
+          className="w-14 sm:w-30 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
+      <span>kg</span>
       <span className="hidden sm:inline  text-cyan-700">
         Volume: {value.rep && value.weight ? (value.rep * value.weight).toFixed(0) + ' kg' : '  '}
       </span>
