@@ -25,7 +25,7 @@ function ExerciseForm({ sets = [], onSetsChange }) {
   const totalVolume = sets.reduce((sum, s) => sum + (Number(s.volume) || 0), 0);
 
   return (
-    <div className='bg-gray-300 p-4 rounded-lg mb-4'>
+    <div className='p-2 rounded-lg mb-1 w-full max-w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl'>
       {sets.map((set, idx) => (
         <SetForm
           key={idx}
@@ -42,9 +42,11 @@ function ExerciseForm({ sets = [], onSetsChange }) {
           <Plus className="w-3 h-3" />
           Add Set
         </button>
-        <div className='bg-red-100 px-3 py-1.5 rounded-md'>
-          <span className='text-blue-700'> Total Volume: {totalVolume.toFixed(0) + ' kg'}</span>
-        </div>
+        {totalVolume > 0 && (
+          <div className='px-3 py-1.5 rounded-md'>
+            <span className='text-slate-700'> Total Volume: {totalVolume.toFixed(0) + ' kg'}</span>
+          </div>
+        )}
       </div>
     </div>
   );

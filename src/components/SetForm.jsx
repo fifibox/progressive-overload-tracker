@@ -28,7 +28,7 @@ function SetForm({ value = {}, onChange }) {
           name="rep"
           value={value.rep || ''}
           onChange={handleChange}
-          className="px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
+          className="w-16 px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
       <label>
@@ -38,10 +38,10 @@ function SetForm({ value = {}, onChange }) {
           name="weight"
           value={value.weight || ''}
           onChange={handleChange}
-          className="px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
+          className="w-16 px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
-      <span className='mr-10 text-cyan-700'>
+      <span className="hidden md:inline mr-10 text-cyan-700">
         Volume: {value.rep && value.weight ? (value.rep * value.weight).toFixed(0) + ' kg' : '  '}
       </span>
     </div>

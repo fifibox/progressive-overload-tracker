@@ -36,11 +36,11 @@ export default function View() {
   return (
     <div className="text-center text-slate-500">
       <div className="mt-4 text-left bg-white rounded shadow p-4 mx-auto max-w-3xl">
-        <div className="flex gap-25 mb-4">
-        <h3 className="text-md md:text-xl font-semibold mb-6 flex items-center gap-2 ">
+        <div className="flex flex-row gap-6 mb-4">
+        <p className="mb-8 flex items-center">
           <TrendingUp className="w-5 h-5 text-green-400" />
-          Volume Progress
-        </h3>
+          <span className="ml-2 text-sm font-semibold sm:text-xl">Volume Progress</span>
+        </p>
 
         {/* Exercise Selector for Graph */}
         <div className="mb-4">

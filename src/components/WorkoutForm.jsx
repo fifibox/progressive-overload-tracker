@@ -67,17 +67,17 @@ function WorkoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col bg-blue-200">
+    <form onSubmit={handleSubmit} className="min-h-screen flex flex-col">
+      <div className="flex-1 px-4 w-full max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col bg-blue-200 sm:px-6 md:px-10 lg:px-16">
         {/* Header */}
         <div className="text-center mb-8 mt-5">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Dumbbell className="w-8 h-8 text-blue-400" />
             <h1 className="text-3xl font-bold">Workout Tracker</h1>
           </div>
-          <p className="text-slate-400">Track your progressive overload and visualize your gains</p>
+          <p className="text-slate-400">Track your workout and visualize your gains</p>
         </div>
-        <div className="flex flex-col gap-4 width-500 mx-auto">
+        <div className="flex flex-col gap-4 w-full">
           {/* 日期选择 */}
           <label className="font-medium flex items-center gap-2">
             Date:
@@ -90,7 +90,7 @@ function WorkoutForm() {
           </label>
 
           <button
-            className="bg-amber-100"
+            className="bg-amber-200"
             onClick={addExercise}
             type="button"
           >
@@ -98,10 +98,10 @@ function WorkoutForm() {
           </button>
 
           {exercises.map((exercise, idx) => (
-            <div key={idx} className="mb-2">
-              <label className="mr-2">Exercise {idx + 1}:</label>
+            <div key={idx} className="mb-2 pt-4 bg-gray-300">
+              <label className="mr-2 pl-2">Exercise {idx + 1}:</label>
               <select
-                className="rounded border px-2 py-1 mr-4 mb-2"
+                className="rounded border px-2 py-1 mr-4"
                 value={exercise.name}
                 onChange={e => handleNameChange(idx, e.target.value)}
                 required
@@ -121,7 +121,8 @@ function WorkoutForm() {
           {/* Save Button */}
           <button
             type="submit"
-            className="py-3 mb-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed"
+            className="
+            py-3 mb-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:from-slate-600 disabled:to-slate-600 text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed"
           >
             Save Workout
           </button>
