@@ -34,37 +34,51 @@ export default function View() {
     : [];
 
   return (
-    <div className="flex items-center justify-center">
-      <div className="text-center text-slate-500">
-        <div className="p-6 bg-slate-100 rounded-full mx-auto mb-6 w-24 h-24 flex items-center justify-center">
-          <TrendingUp className="w-12 h-12 opacity-50" />
+    <div className="text-center text-slate-500">
+      <div className="mt-4 text-left bg-white rounded shadow p-4 mx-auto max-w-3xl">
+        <div className="flex gap-25 mb-4">
+        <h3 className="text-md md:text-xl font-semibold mb-6 flex items-center gap-2 ">
+          <TrendingUp className="w-5 h-5 text-green-400" />
+          Volume Progress
+        </h3>
+
+        {/* Exercise Selector for Graph */}
+        <div className="mb-4">
+          <select
+            className="mb-4 px-3 py-2 rounded border border-slate-300"
+            value={selected}
+            onChange={e => setSelected(e.target.value)}
+          >
+            {selected === '' && (
+              <option value="" disabled hidden>
+                Select exercise
+              </option>
+            )}
+            {exerciseNames.map(name => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+        </div>
+        {/* Volume Area Chart */}
+         <div className="h-80">
+          {selected ? (                    
+            <div className='mt-4'>
+              <VolumeAreaChart data={selectedData} exerciseName={selected + " volume"} />
+            </div>) : (
+              <>
+                <div className="text-center text-slate-400 p-6 mt-15 bg-slate-100 rounded-full mx-auto mb-6 w-24 h-24">
+                  <TrendingUp className="w-12 h-12 mx-auto mb-4 opacity-70" />  
+                </div>
+                <p className="text-center">Select an exercise to visualize your gains</p>
+              </>
+            )}
         </div>
 
-        <select
-          className="mb-4 px-3 py-2 rounded border border-slate-300"
-          value={selected}
-          onChange={e => setSelected(e.target.value)}
-        >
-          {selected === '' && (
-            <option value="" disabled hidden>
-              Select exercise
-            </option>
-          )}
-          {exerciseNames.map(name => (
-            <option key={name} value={name}>{name}</option>
-          ))}
-        </select>
-        <p className="text-lg font-medium">
-          {selected ? `Viewing: ${selected}` : 'Select an exercise to view progress'}
-        </p>
 
-        {/*  Area Chart to visualize the volume */}
-        <div className="mt-4">
-          <VolumeAreaChart data={selectedData} exerciseName={selected + " volume"} />
-        </div>
-
+</div>
         {selected && (
-          <div className="mt-4 text-left bg-white rounded shadow p-4 mx-auto max-w-md">
+          <div className="mt-4 text-left bg-white rounded shadow p-4 mx-auto max-w-3xl">
             <div className="font-semibold mb-2">Workout History:</div>
               {selectedData.map(item => (
                 <div key={item.date} className="mb-2">
@@ -82,11 +96,9 @@ export default function View() {
 
           </div>
         )}
-        {!selected && (
-          <p className="text-sm text-slate-400 mt-2">Your volume chart will appear here</p>
-        )}
 
       </div>
-    </div>
+
   );
+
 }
