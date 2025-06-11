@@ -31,6 +31,7 @@ export default function View() {
           };
         })
         .filter(item => item && item.exercise)
+        .sort((a, b) => new Date(a.date) - new Date(b.date)) // 按日期升序排序
     : [];
 
   return (
