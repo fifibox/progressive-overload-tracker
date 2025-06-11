@@ -25,10 +25,12 @@ function SetForm({ value = {}, onChange }) {
         <span className="mr-2">Rep:</span>
         <input
           type="number"
+          inputMode="numeric"
+          pattern="\d*"
           name="rep"
           value={value.rep || ''}
           onChange={handleChange}
-          className="w-16 px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
+          className="w-14 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
       <label>
@@ -38,10 +40,10 @@ function SetForm({ value = {}, onChange }) {
           name="weight"
           value={value.weight || ''}
           onChange={handleChange}
-          className="w-16 px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
+          className="w-15 sm:w-30 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
-      <span className="hidden md:inline mr-10 text-cyan-700">
+      <span className="hidden sm:inline  text-cyan-700">
         Volume: {value.rep && value.weight ? (value.rep * value.weight).toFixed(0) + ' kg' : '  '}
       </span>
     </div>

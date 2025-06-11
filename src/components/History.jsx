@@ -16,15 +16,6 @@ function History() {
     localStorage.setItem('workouts', JSON.stringify(newWorkouts));
   };
 
-  // 编辑（这里只做简单的日期修改示例）
-  const handleEdit = (idx, newDate) => {
-    const newWorkouts = workouts.map((w, i) =>
-      i === idx ? { ...w, date: newDate } : w
-    );
-    setWorkouts(newWorkouts);
-    localStorage.setItem('workouts', JSON.stringify(newWorkouts));
-  };
-
   return (
     <div className="max-w-2xl mx-auto mt-8 bg-white rounded shadow p-6">
       <h2 className="text-xl font-bold mb-4">Your Workouts</h2>
@@ -33,22 +24,16 @@ function History() {
         <div key={idx} className="border-b py-3 flex flex-col gap-2">
           <div>
             <span className="font-semibold">Date: </span>
-            <input
-              type="date"
-              value={workout.date}
-              onChange={e => handleEdit(idx, e.target.value)}
-              className="border rounded px-2 py-1"
-            />
+            <span>{workout.date}</span>
           </div>
           <div>
-            <span className="font-semibold">Exercises:</span>
             <ul className="ml-4 list-disc">
               {workout.exercises.map((ex, i) => (
                 <li key={i}>
                   <span className="font-medium">{ex.name}</span>
                   <ul className="ml-4 list-square text-sm">
                     {ex.sets.map((set, j) => (
-                      <li key={j}>
+                      <li key={j} className="text-slate-500">
                         {set.rep} reps × {set.weight}kg (Volume: {set.volume})
                       </li>
                     ))}

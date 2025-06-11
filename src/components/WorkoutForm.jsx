@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ExerciseForm from './ExerciseForm.jsx';
-import { Dumbbell } from 'lucide-react';
+import { Dumbbell, Plus } from 'lucide-react';
 
 const exerciseOptions = [
   'Bench Press',
@@ -33,6 +33,7 @@ function WorkoutForm() {
     const today = new Date();
     return today.toISOString().slice(0, 10);
   });
+  const [showTip, setShowTip] = useState(true);
 
   // 更新exercise名称
   const handleNameChange = (idx, newName) => {
@@ -50,6 +51,7 @@ function WorkoutForm() {
 
   const addExercise = () => {
     setExercises(prev => [...prev, { name: '', sets: [] }]);
+    setShowTip(false); // 点击后隐藏提示
   };
 
   // 提交表单
@@ -70,42 +72,53 @@ function WorkoutForm() {
     <form onSubmit={handleSubmit} className="min-h-screen flex flex-col">
       <div className="flex-1 px-4 w-full max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col bg-blue-200 sm:px-6 md:px-10 lg:px-16">
         {/* Header */}
-        <div className="text-center mb-8 mt-5">
+        <div className="text-center mb-2 mt-5">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Dumbbell className="w-8 h-8 text-blue-400" />
             <h1 className="text-3xl font-bold">Workout Tracker</h1>
           </div>
-          <p className="text-slate-400">Track your workout and visualize your gains</p>
+          {showTip && (
+            <p className="text-slate-400 mb-3">Track your workout and visualize your gains</p>
+          )}
         </div>
         <div className="flex flex-col gap-4 w-full">
+          <div className="flex">
           {/* 日期选择 */}
-          <label className="font-medium flex items-center gap-2">
+          <label className="font-medium flex items-center gap-1 pr-4 ml-6">
             Date:
             <input
               type="date"
-              className="rounded border px-2 py-1"
+              className="px-1 py-1 w-28 text-sm sm:text-base bg-transparent focus:outline-none focus:border-blue-400 transition-colors"
               value={date}
               onChange={e => setDate(e.target.value)}
             />
           </label>
 
-          <button
-            className="bg-amber-200"
-            onClick={addExercise}
+          <button 
             type="button"
+            onClick={addExercise}
+            className="
+            bg-blue-500 hover:bg-blue-600 transform hover:scale-[1.02] disabled:scale-100 disabled:cursor-not-allowed
+            flex w-33 items-center gap-2 px-3 py-1.5 text-white text-sm rounded-xl transition-colors"
           >
-            Add Exercise to this workout
+            <Plus className="w-3 h-3" />
+            Add Exercise
           </button>
+          </div>
 
           {exercises.map((exercise, idx) => (
-            <div key={idx} className="mb-2 pt-4 bg-gray-300">
-              <label className="mr-2 pl-2">Exercise {idx + 1}:</label>
+            <div key={idx} 
+            className="mb-4 pt-4 pb-4 px-4 bg-white/80 rounded-xl shadow flex flex-col gap-2 border border-slate-100"
+            >
+              <label className="mr-2 pl-2 font-semibold text-blue-900">
+                Exercise {idx + 1}:
+              </label>
               <select
-                className="rounded border px-2 py-1 mr-4"
-                value={exercise.name}
-                onChange={e => handleNameChange(idx, e.target.value)}
-                required
-              >
+                  className="border-b-2 border-dashed border-slate-300 px-2 py-1 mr-4 bg-transparent focus:outline-none focus:border-blue-400 transition-colors"
+                  value={exercise.name}
+                  onChange={e => handleNameChange(idx, e.target.value)}
+                  required
+                >
                 <option value="" disabled>Select exercise</option>
                 {exerciseOptions.map(opt => (
                   <option key={opt} value={opt}>{opt}</option>
