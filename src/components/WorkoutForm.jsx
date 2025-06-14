@@ -62,12 +62,40 @@ function WorkoutForm() {
     setShowTip(false); // 点击后隐藏提示
   };
 
-  // 提交表单
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const workout = collectWorkout(date, exercises);
 
-    // 获取已保存的workouts
+    // Validate workout data
+    if (!workout.date){
+      alert('Please select a date.');
+      return;
+    } 
+    if (workout.exercises.length === 0) {
+      alert('Please add at least one exercise.');
+      return;
+    }
+
+    // validate weight and rep is not empty
+    if (workout.exercises.some(ex => ex.sets.some(set => !set.rep || !set.weight))) {
+      alert('Please fill in all sets with valid reps and weights.');
+      return;
+    }
+    // validate exercise name is not empty
+    if (workout.exercises.some(ex => !ex.name || ex.sets.length === 0)) {
+      alert('Please select an exercise for each entry.');
+      return;
+    }
+    // validate date is not in the future
+    const today = new Date();
+    const selectedDate = new Date(workout.date);
+    if (selectedDate > today) {
+      alert('The selected date cannot be in the future.');
+      return;
+    }
+
+    // load previous workouts from localStorage
     const prev = JSON.parse(localStorage.getItem('workouts') || '[]');
 
     // 查找是否有同一天
@@ -100,14 +128,13 @@ function WorkoutForm() {
     alert('Workout saved!');
   };
 
-  // 打开弹窗
+  // updating exercise options (open modal)
   const handleAddNewExercise = (idx) => {
     setPendingIdx(idx);
     setNewExerciseName('');
     setShowAddModal(true);
   };
 
-  // 确认添加
   const handleConfirmAdd = () => {
     if (
       newExerciseName &&
@@ -121,7 +148,7 @@ function WorkoutForm() {
     setShowAddModal(false);
   };
 
-  // 取消添加
+  // cancel adding new exercise in modal
   const handleCancelAdd = () => {
     setShowAddModal(false);
   };
@@ -174,7 +201,7 @@ function WorkoutForm() {
 
       {/* 原有表单内容 */}
       <form onSubmit={handleSubmit} className="min-h-screen flex flex-col">
-        <div className="flex-1 px-4 w-full max-w-full sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto flex flex-col bg-blue-200 sm:px-6 md:px-10 lg:px-16">
+        <div className="flex-1 px-4 w-full max-w-full mx-auto flex flex-col bg-blue-200 sm:px-6 md:px-10 lg:px-60">
           {/* Header */}
           <div className="text-center mb-2 mt-5">
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -192,8 +219,10 @@ function WorkoutForm() {
               Date:
               <input
                 type="date"
-                className="px-1 py-1 w-28 text-sm sm:text-base bg-transparent focus:outline-none focus:border-blue-400 transition-colors"
+                className="px-1 py-1 w-30 md:w-36 text-sm sm:text-base bg-transparent focus:outline-none focus:border-blue-400 transition-colors"
                 value={date}
+                max={new Date().toISOString().slice(0, 10)} // prevent future dates selection
+                required
                 onChange={e => setDate(e.target.value)}
               />
             </label>

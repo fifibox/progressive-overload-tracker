@@ -5,11 +5,11 @@ function SetForm({ value = {}, onChange }) {
     const { name, value: inputValue } = e.target;
     let newSet = { ...value, [name]: inputValue };
 
-    // 只允许数字
+    // validate input (rep must be a positive integer, weight must be a positive number)
     if (name === 'rep' && !/^\d*$/.test(inputValue)) return;
     if (name === 'weight' && !/^\d*\.?\d*$/.test(inputValue)) return;
 
-    // 计算新 volume
+    // Volume calculation
     const rep = Number(newSet.rep);
     const weight = Number(newSet.weight);
     const validRep = Number.isInteger(rep) && rep > 0;
@@ -30,6 +30,8 @@ function SetForm({ value = {}, onChange }) {
           name="rep"
           value={value.rep || ''}
           onChange={handleChange}
+          required
+          min ="1"
           className="w-14 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
@@ -42,6 +44,8 @@ function SetForm({ value = {}, onChange }) {
           name="weight"
           value={value.weight || ''}
           onChange={handleChange}
+          required
+          min="1"
           className="w-14 sm:w-30 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
