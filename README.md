@@ -1,13 +1,14 @@
 # Progressive Overload Tracker
 
-A modern web app to log, track, and visualize your workout progress.
+A modern web app to log, track, and visualize your strength training progress.
 
 ## Features
 
-- Log workouts with multiple exercises and sets
+- Log resistance(strength) training workouts
 - Track workout history
 - Visualize progress and training volume with interactive charts
 - Responsive, mobile-first UI
+- No registration required, all data is saved locally in your browser
 
 ## Tech Stack
 
