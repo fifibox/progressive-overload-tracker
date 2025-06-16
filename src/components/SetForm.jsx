@@ -1,13 +1,7 @@
-import { useState } from 'react';
-
 function SetForm({ value = {}, onChange }) {
   const handleChange = (e) => {
     const { name, value: inputValue } = e.target;
     let newSet = { ...value, [name]: inputValue };
-
-    // validate input (rep must be a positive integer, weight must be a positive number)
-    if (name === 'rep' && !/^\d*$/.test(inputValue)) return;
-    if (name === 'weight' && !/^\d*\.?\d*$/.test(inputValue)) return;
 
     // Volume calculation
     const rep = Number(newSet.rep);
@@ -26,7 +20,6 @@ function SetForm({ value = {}, onChange }) {
         <input
           type="number"
           inputMode="numeric"
-          pattern="\d*"
           name="rep"
           value={value.rep || ''}
           onChange={handleChange}
@@ -40,12 +33,12 @@ function SetForm({ value = {}, onChange }) {
         <input
           type="number"
           inputMode="numeric"
-          pattern="\d*"
           name="weight"
           value={value.weight || ''}
           onChange={handleChange}
           required
-          min="1"
+          min="0.1"
+          step="0.1"
           className="w-14 sm:w-30 md:w-auto px-2 py-1 bg-slate-200 border border-slate-500 rounded-sm"
         />
       </label>
